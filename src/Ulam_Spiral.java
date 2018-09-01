@@ -9,7 +9,7 @@ public class Ulam_Spiral extends JFrame{
 
     public Ulam_Spiral(){
         this.setSize(400, 400);
-        this.setResizable(false);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
         this.setTitle("Ulam Spiral");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

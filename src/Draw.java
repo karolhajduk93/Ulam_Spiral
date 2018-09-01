@@ -1,6 +1,9 @@
+import javafx.stage.Screen;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.util.Arrays;
 
 public class Draw extends JComponent {
     @Override
@@ -9,73 +12,99 @@ public class Draw extends JComponent {
 
         Graphics2D g2 = (Graphics2D) g;
 
-        int width = 190;
-        int height = 160;
-        int x = width, y = height;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = screenSize.width/2;
+        int y = screenSize.height/2;
+        int maxValue = 25000;
         Ellipse2D ellipse = new Ellipse2D.Double(x, y, 3, 3);
+        
+        g2.setColor(Color.red);
         g2.fill(ellipse);
         g2.draw(ellipse);
+        g2.setColor(Color.black);
 
-        int k = 0, i = 1;
-        System.out.println(i + "XXX");
-        i++;
-        while (i < 49){
+
+        boolean[] primeNumbers = new boolean[maxValue];
+        Arrays.fill(primeNumbers, true);
+
+        for(int i = 2; i < Math.sqrt(maxValue); i++){
+            if(primeNumbers[i]){
+                for (int j = (int)Math.pow(i, 2); j < maxValue; j += i){
+                    primeNumbers[j] = false;
+                }
+            }
+        }
+
+        int k = 0, i = 2;
+        while (i < maxValue){
             k++;
+
             for (int j = 0; j < k; j++){
-                //go right (print or compute i)
-                x += 6;
+                //go right
+                x += 4;
                 ellipse.setFrame(x, y,3, 3);
-                g2.draw(ellipse);
-                g2.fill(ellipse);
-                System.out.print(i + " ");
+                if(primeNumbers[i]) {
+                    g2.draw(ellipse);
+                    g2.fill(ellipse);
+                }
                 i++;
-                if(i > 49)
+
+                if(i >= maxValue)
                     break;
             }
-            if(i > 49)
+
+            if(i >= maxValue)
                 break;
-            System.out.println();
+
             for (int j = 0; j < k; j++){
-                //go up (print or compute i)
-                y -= 6;
+                //go up
+                y -= 4;
                 ellipse.setFrame(x, y,3, 3);
-                g2.draw(ellipse);
-                g2.fill(ellipse);
-                System.out.print(i + " ");
+                if(primeNumbers[i]) {
+                    g2.draw(ellipse);
+                    g2.fill(ellipse);
+                }
                 i++;
-                if(i > 49)
+
+                if(i >= maxValue)
                     break;
             }
-            if(i > 49)
+
+            if(i >= maxValue)
                 break;
-            System.out.println();
+
             k++;
+
             for (int j = 0; j < k; j++){
-                //go left (print or compute i)
-                x -= 6;
+                //go left
+                x -= 4;
                 ellipse.setFrame(x, y,3, 3);
-                g2.draw(ellipse);
-                g2.fill(ellipse);
-                System.out.print(i + " ");
+                if(primeNumbers[i]) {
+                    g2.draw(ellipse);
+                    g2.fill(ellipse);
+                }
                 i++;
-                if(i > 49)
+
+                if(i >= maxValue)
                     break;
             }
-            if(i > 49)
+
+            if(i >= maxValue)
                 break;
-            System.out.println();
+
             for (int j = 0; j < k; j++){
-                //go down (print or compute i)
-                y += 6;
+                //go down
+                y += 4;
                 ellipse.setFrame(x, y,3, 3);
-                g2.draw(ellipse);
-                g2.fill(ellipse);
-                System.out.print(i + " ");
+                if(primeNumbers[i]) {
+                    g2.draw(ellipse);
+                    g2.fill(ellipse);
+                }
                 i++;
-                if(i > 49)
+
+                if(i >= maxValue)
                     break;
             }
-            System.out.println();
         }
     }
 }
